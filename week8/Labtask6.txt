@@ -1,0 +1,23 @@
+#include<stdio.h>
+//create the function
+int searchEmployee(int searchId,int array[],int arraySize){
+    for(int i=0;i<arraySize;i++){
+        if(array[i]==searchId){
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main(){
+    //declare variables
+    int employeeIds[5]={101,102,103,104,105};
+    int searchId=0;
+    //call functions
+    printf("Enter the employee ID to search: ");
+    scanf("%d",&searchId);
+
+    //display the index of the employee
+    printf("Employee ID %d found at index: %d\n",searchId,searchEmployee(searchId,employeeIds,5));
+    return 0;
+}

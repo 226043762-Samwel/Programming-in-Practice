@@ -1,0 +1,119 @@
+#include <stdio.h>
+
+// Functions
+float calculateVAT(float amount);
+float calculateSalary(float basic, float housing, float transport);
+float calculateBudget(float revenue, float expenses);
+void displayMenu();
+int searchEmployee(int id, int ids[], int size);
+
+int main() {
+    int choice;
+    int employeeIDs[] = {101, 102, 103, 104, 105};
+    int size = 5;
+
+    do {
+        displayMenu();
+        scanf("%d", &choice);
+        printf("\n");
+
+        switch(choice) {
+            case 1: {
+                // VAT Calculation
+                float amount;
+                printf("Enter amount: ");
+                scanf("%f", &amount);
+                printf("VAT: %.2f\n\n", calculateVAT(amount));
+                break;
+            }
+            case 2: {
+                // Salary Calculation
+                float basic, housing, transport;
+                printf("Basic salary: ");
+                scanf("%f", &basic);
+                printf("Housing allowance: ");
+                scanf("%f", &housing);
+                printf("Transport allowance: ");
+                scanf("%f", &transport);
+                printf("Gross salary: %.2f\n\n", calculateSalary(basic, housing, transport));
+                break;
+            }
+            case 3: {
+                // Budget Calculation
+                float revenue, expenses;
+                printf("Enter revenue: ");
+                scanf("%f", &revenue);
+                printf("Enter expenses: ");
+                scanf("%f", &expenses);
+                
+                float result = calculateBudget(revenue, expenses);
+                printf("Net Budget: %.2f\n", result);
+                if (result > 0) {
+                    printf("SURPLUS\n\n");
+                } else if (result < 0) {
+                    printf("DEFICIT\n\n");
+                } else {
+                    printf("BALANCED\n\n");
+                }
+                break;
+            }
+            case 4: {
+                // Search Employee
+                int id;
+                printf("Enter employee ID: ");
+                scanf("%d", &id);
+                
+                int position = searchEmployee(id, employeeIDs, size);
+                if (position != -1) {
+                    printf("Employee found at position %d.\n\n", position);
+                } else {
+                    printf("Employee not found.\n\n");
+                }
+                break;
+            }
+            case 5:
+                printf("Goodbye.\n");
+                break;
+            default:
+                printf("Invalid choice.\n\n");
+        }
+    } while(choice != 5);
+
+    return 0;
+}
+
+// --- Function Definitions ---
+
+float calculateVAT(float amount) {
+    return amount * 0.15f;
+}
+
+float calculateSalary(float basic, float housing, float transport) {
+    return basic + housing + transport;
+}
+
+float calculateBudget(float revenue, float expenses) {
+    return revenue - expenses;
+}
+
+void displayMenu() {
+    printf("==================================\n");
+    printf("MUNICIPAL FINANCIAL MANAGEMENT\n");
+    printf("==================================\n");
+    printf("Page 24 of 32\n");
+    printf("1. Calculate VAT\n");
+    printf("2. Calculate Salary\n");
+    printf("3. Calculate Budget\n");
+    printf("4. Search Employee\n");
+    printf("5. Exit\n");
+    printf("Enter choice: ");
+}
+
+int searchEmployee(int id, int ids[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (ids[i] == id) {
+            return i;
+        }
+    }
+    return -1;
+}
